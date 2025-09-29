@@ -3,14 +3,13 @@ import subprocess
 import sys
 import os
 
-# --- 1. Test Configuration ---
 # The script will get its input data by running data.py
 DATA_GENERATOR_SCRIPT = "data.py"
 INPUT_FILE = "input_data.bin" # The file created by data.py
 OUTPUT_FILE = "standalone_relu_output.bin"
 EXECUTABLE = "./relu.exe"
 
-# --- 2. Generate Input Data by running data.py ---
+# Generate Input Data by running data.py
 print(f"--- Running data generator script: {DATA_GENERATOR_SCRIPT} ---")
 try:
     # Execute data.py as a separate process
@@ -25,7 +24,7 @@ except subprocess.CalledProcessError:
 print("-" * 20)
 
 
-# --- 3. Build and Execute the Command ---
+# Build and Execute the Command 
 # This list contains all the arguments that will be passed to relu.exe
 command = [
     EXECUTABLE,
@@ -56,7 +55,7 @@ except subprocess.CalledProcessError as e:
 print("\n" + "-" * 20)
 print("--- Standalone test finished successfully! ---")
 
-# --- 4. (Optional) Verify Output ---
+# Verify Output (Optional)
 if os.path.exists(OUTPUT_FILE):
     print(f"\n--- Verifying output file '{OUTPUT_FILE}' ---")
     output_data = np.fromfile(OUTPUT_FILE, dtype=np.float32)
@@ -65,4 +64,5 @@ if os.path.exists(OUTPUT_FILE):
         print(f"First 5 output elements: {output_data[:5]}")
 else:
     print(f"[WARNING] Output file '{OUTPUT_FILE}' was not created.")
+
 
