@@ -18,5 +18,4 @@ friendly API with the low-level, hardware environment of
  inference and training. 
 
  
- We provide instructions on how to run this project.
  
