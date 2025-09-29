@@ -7,16 +7,16 @@
 #include <cmath>
 #include <string>
 
-//--- Data type definitions ---
+// Data type definitions 
 using DATATYPE_IN1 = std::bfloat16_t;
 using DATATYPE_OUT = std::bfloat16_t;
 
-// --- Global variables for file names ---
+//  Global variables for file names 
 std::string g_inputFile;
 std::string g_outputFile;
 
 
-// --- Function to get the size of a file in bytes ---
+// Function to get the size of a file in bytes 
 long get_file_size(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary | std::ios::ate);
     if (!file.is_open()) {
@@ -26,7 +26,7 @@ long get_file_size(const std::string& filename) {
     return file.tellg();
 }
 
-// --- Initialization function ---
+// Initialization function 
 void initialize_bufIn1(DATATYPE_IN1 *bufIn1, int SIZE, const std::string& input_filename) {
     std::ifstream infile(input_filename, std::ios::binary);
       if (infile.is_open()) {
@@ -61,7 +61,7 @@ void write_output_data(DATATYPE_OUT *bufOut, int SIZE, const std::string& output
         exit(EXIT_FAILURE);
     }
 }
-// --- Verification function ---
+// Verification function 
 int verify_relu_kernel(DATATYPE_IN1 *bufIn1, DATATYPE_OUT *bufOut, int SIZE, int verbosity) {
   int errors = 0;
   for (uint32_t i = 0; i < SIZE; i++) {
@@ -75,7 +75,7 @@ int verify_relu_kernel(DATATYPE_IN1 *bufIn1, DATATYPE_OUT *bufOut, int SIZE, int
   return errors;
 }
 
-// --- CPU ReLU implementation ---
+//  CPU ReLU implementation 
 void cpu_relu(const DATATYPE_IN1 *input, float *output, int size) {
     for (int i = 0; i < size; ++i) {
         float val = static_cast<float>(input[i]); // Convert bfloat16 to float
@@ -88,7 +88,7 @@ int main(int argc, const char *argv[]) {
   constexpr int IN1_VOLUME = IN1_SIZE / sizeof(DATATYPE_IN1);
   constexpr int OUT_VOLUME = OUT_SIZE / sizeof(DATATYPE_OUT);
 
-  // --- Parameter handling ---
+  //  Parameter handling 
   cxxopts::Options options("XRT Test Wrapper", "Test harness for NPU kernels");
   options.allow_unrecognised_options();
   options.add_options()
@@ -126,12 +126,12 @@ int main(int argc, const char *argv[]) {
       std::cerr << "Error: --input-file and --output-file arguments are required." << std::endl;
       return 1;
   }
-    // --- Load input data into host memory first ---
+    // Load input data into host memory first 
   std::vector<DATATYPE_IN1> host_input_buffer(IN1_VOLUME);
   // We'll use the existing initialize_bufIn1 to load data into our vector
   initialize_bufIn1(host_input_buffer.data(), IN1_VOLUME, myargs.input_file);
 
-     // --- CPU ReLU Calculation and Timing ---
+     // CPU ReLU Calculation and Timing 
   std::cout << "\n--- Running ReLU on CPU for comparison ---" << std::endl;
   std::vector<float> cpu_output_buffer(OUT_VOLUME);
   
@@ -142,7 +142,7 @@ int main(int argc, const char *argv[]) {
   auto cpu_duration = std::chrono::duration_cast<std::chrono::microseconds>(cpu_stop - cpu_start).count();
   std::cout << "CPU execution time: " << cpu_duration << " us" << std::endl;
   std::cout << "-----------------------------------------\n" << std::endl;
-  // --- END of CPU Section ---
+  // END of CPU Section 
     
   
   // Use a lambda to pass the loaded data to the AIE wrapper
@@ -157,7 +157,7 @@ int main(int argc, const char *argv[]) {
       return verify_relu_kernel(b_in, b_out, size, verbosity);
   };
 
-  // --- Call the test wrapper with the lambdas ---
+  // Call the test wrapper with the lambdas 
   //  We use lambdas as the arguments of the template
  int aie_res = setup_and_run_aie<DATATYPE_IN1, DATATYPE_OUT>(
     IN1_VOLUME,
@@ -174,7 +174,7 @@ int main(int argc, const char *argv[]) {
       return aie_res;
   }
 
-  // --- Write results to the output file ---
+  // Write results to the output file
   write_output_data(result_buffer.data(), OUT_VOLUME, myargs.output_file);
   std::cout << "[INFO] AIE run completed successfully. Output written to " << myargs.output_file << std::endl;
 
@@ -182,3 +182,4 @@ int main(int argc, const char *argv[]) {
   return 0;
 
 } 
+
