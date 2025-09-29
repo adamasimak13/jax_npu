@@ -9,6 +9,8 @@ performance machine learning framework from Google. It
  for power-efficient and highly accelerated computation.
 
 <img width="360" height="261" alt="image" src="https://github.com/user-attachments/assets/821733d5-1ed3-459b-9fd0-c462bebe7ce8" />
+
+
 This project proves the concept that connects JAX's user
 friendly API with the low-level, hardware environment of
  NPUs. By doing this, we open up opportunities for the JAX
