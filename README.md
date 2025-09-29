@@ -1,5 +1,5 @@
 # Integration and evaluation of JAX framework on NPUs
-## Project Goal
+## 1. Project Goal
  The main goal of this project is to run JAX programs on
  Neural Processing Units (NPUs). JAX is a high
 performance machine learning framework from Google. It
@@ -17,5 +17,9 @@ friendly API with the low-level, hardware environment of
  ecosystem to take advantage of NPUs for neural network
  inference and training. 
 
- 
+## 2. Achievements
+We designed and implemented a system that transfers JAX computations to an NPU. We successfully performed two basic neural network operations on the NPU using JAX, ReLU and Matrix Multiplication (Matmul). 
+ReLU (Rectified Linear Unit) is a basic, element-wise activation function. Running this operation successfully confirms the whole data path, from JAX's Python environment to the NPU hardware and back. 
+Matrix Multiplication (Matmul) is a computationally heavy process and its also one of the most basic operation for modern neural networks. Its successful execution shows that the architecture can manage complex tasks, making it a practical choice for real-world machine learning models. 
+The final result is a system where a user can write standard JAX code. Through our implementation, the computation runs on the NPU without needing changes to the user's high-level model definition. 
  
