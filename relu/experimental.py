@@ -11,8 +11,6 @@ def relu(x):
 #  Use the custom pmap for the NPU
 parallel_relu = relu4npu.pmap_npu(relu)
 
-# --- Example Execution ---
-
 num_devices = jax.device_count()
 print(f"\n--- Running on {num_devices} devices ---")
 input_file = "input_data.bin"
@@ -34,4 +32,5 @@ y_jax = parallel_relu(x_jax)
 y_jax.block_until_ready()
 print("\nNPU execution complete.")
 print("Output shape:", y_jax.shape)
+
 print("Output data sample:", y_jax.flatten()[:5])
