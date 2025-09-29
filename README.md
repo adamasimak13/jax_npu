@@ -16,5 +16,7 @@ friendly API with the low-level, hardware environment of
  NPUs. By doing this, we open up opportunities for the JAX
  ecosystem to take advantage of NPUs for neural network
  inference and training. 
+
+ 
  We provide instructions on how to run
  
