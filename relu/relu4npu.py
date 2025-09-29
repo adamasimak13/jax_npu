@@ -10,12 +10,12 @@ from functools import wraps
 if "XLA_FLAGS" not in os.environ:
     os.environ["XLA_FLAGS"] = "--xla_force_host_platform_device_count=4"
 
-# --- 1. Load the C++ shared library ---
+# Load the C++ shared library
 try:
     _lib_path = os.path.abspath("libnpu_relu.so")
     _lib = ctypes.CDLL(_lib_path)
 
-    # --- 2. Define the C++ function signature ---
+    # Define the C++ function signature
     _lib.relu_npu.argtypes = [
         ctypes.POINTER(ctypes.c_float), # float* input
         ctypes.POINTER(ctypes.c_float), # float* output
@@ -31,7 +31,7 @@ except (OSError, AttributeError) as e:
 
 # The callback function is defined.
 
-# --- 3. The HOST-SIDE callback function for a SINGLE SHARD ---
+# The HOST-SIDE callback function for a SINGLE SHARD 
 def _npu_relu_shard_callback(A_shard, shard_id):
     """
     This function is the bridge to C++ for a SINGLE shard of data.
@@ -72,4 +72,5 @@ def pmap_npu(func_to_parallelize, in_axes=0, axis_name="shard_axis"):
         return result_shard
 
     return jax.pmap(npu_executor, in_axes=in_axes, axis_name=axis_name)
+
 
