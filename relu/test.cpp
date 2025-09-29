@@ -7,11 +7,11 @@
 #include <cmath>
 #include <string>
 
-// Ορισμοί τύπων δεδομένων
+//--- Data type definitions ---
 using DATATYPE_IN1 = std::bfloat16_t;
 using DATATYPE_OUT = std::bfloat16_t;
 
-// --- Καθολικές μεταβλητές για τα ονόματα των αρχείων ---
+// --- Global variables for file names ---
 std::string g_inputFile;
 std::string g_outputFile;
 
@@ -26,7 +26,7 @@ long get_file_size(const std::string& filename) {
     return file.tellg();
 }
 
-// --- Συνάρτηση αρχικοποίησης που χρησιμοποιεί την καθολική μεταβλητή g_inputFile ---
+// --- Initialization function ---
 void initialize_bufIn1(DATATYPE_IN1 *bufIn1, int SIZE, const std::string& input_filename) {
     std::ifstream infile(input_filename, std::ios::binary);
       if (infile.is_open()) {
@@ -37,7 +37,7 @@ void initialize_bufIn1(DATATYPE_IN1 *bufIn1, int SIZE, const std::string& input_
           bufIn1[i] = static_cast<DATATYPE_IN1>(temp[i]);
         }
       } else {
-    // Κάντε το μήνυμα σφάλματος πιο χρήσιμο
+   
         std::cerr << "Error opening input file: " << input_filename << "\n";
         exit(EXIT_FAILURE);
       }
@@ -61,7 +61,7 @@ void write_output_data(DATATYPE_OUT *bufOut, int SIZE, const std::string& output
         exit(EXIT_FAILURE);
     }
 }
-// --- Συνάρτηση επαλήθευσης (παραμένει ίδια) ---
+// --- Verification function ---
 int verify_relu_kernel(DATATYPE_IN1 *bufIn1, DATATYPE_OUT *bufOut, int SIZE, int verbosity) {
   int errors = 0;
   for (uint32_t i = 0; i < SIZE; i++) {
@@ -84,11 +84,11 @@ void cpu_relu(const DATATYPE_IN1 *input, float *output, int size) {
 }
 
 int main(int argc, const char *argv[]) {
-  // Ορισμός σταθερών στην αρχή της main
+  // Definition of constants
   constexpr int IN1_VOLUME = IN1_SIZE / sizeof(DATATYPE_IN1);
   constexpr int OUT_VOLUME = OUT_SIZE / sizeof(DATATYPE_OUT);
 
-  // --- Διαχείριση παραμέτρων ---
+  // --- Parameter handling ---
   cxxopts::Options options("XRT Test Wrapper", "Test harness for NPU kernels");
   options.allow_unrecognised_options();
   options.add_options()
@@ -108,7 +108,7 @@ int main(int argc, const char *argv[]) {
       return 0;
   }
 
-  // Δημιουργία και γέμισμα του struct 'args'
+  // Creation and initialization of the 'args' struct
   args myargs;
   myargs.verbosity = vm["verbosity"].as<int>();
   myargs.do_verify = vm["verify"].as<bool>();
@@ -119,7 +119,6 @@ int main(int argc, const char *argv[]) {
   myargs.n_warmup_iterations = 5;
   myargs.trace_size = 0;
 
-  // **ΔΙΟΡΘΩΣΗ**: Ανάθεση των ονομάτων αρχείων στο myargs
   myargs.input_file = vm["input-file"].as<std::string>();
   myargs.output_file = vm["output-file"].as<std::string>();
 
@@ -132,7 +131,7 @@ int main(int argc, const char *argv[]) {
   // We'll use the existing initialize_bufIn1 to load data into our vector
   initialize_bufIn1(host_input_buffer.data(), IN1_VOLUME, myargs.input_file);
 
-     // --- ADDED: CPU ReLU Calculation and Timing ---
+     // --- CPU ReLU Calculation and Timing ---
   std::cout << "\n--- Running ReLU on CPU for comparison ---" << std::endl;
   std::vector<float> cpu_output_buffer(OUT_VOLUME);
   
@@ -145,8 +144,8 @@ int main(int argc, const char *argv[]) {
   std::cout << "-----------------------------------------\n" << std::endl;
   // --- END of CPU Section ---
     
-  // Δημιουργία lambdas για να περάσουμε παραμέτρους στο wrapper
-  // Use a lambda to pass the pre-loaded data to the AIE wrapper
+  
+  // Use a lambda to pass the loaded data to the AIE wrapper
   auto init_in_lambda = [&](DATATYPE_IN1* buf, int size) {
     memcpy(buf, host_input_buffer.data(), size * sizeof(DATATYPE_IN1));
   };
@@ -158,8 +157,8 @@ int main(int argc, const char *argv[]) {
       return verify_relu_kernel(b_in, b_out, size, verbosity);
   };
 
-  // --- Κλήση του test wrapper με τα lambdas ---
-  // **ΔΙΟΡΘΩΣΗ**: Χρησιμοποιούμε τα lambdas ως ορίσματα του template
+  // --- Call the test wrapper with the lambdas ---
+  //  We use lambdas as the arguments of the template
  int aie_res = setup_and_run_aie<DATATYPE_IN1, DATATYPE_OUT>(
     IN1_VOLUME,
     OUT_VOLUME,
@@ -175,10 +174,11 @@ int main(int argc, const char *argv[]) {
       return aie_res;
   }
 
-  // Εγγραφή των αποτελεσμάτων στο αρχείο εξόδου
+  // --- Write results to the output file ---
   write_output_data(result_buffer.data(), OUT_VOLUME, myargs.output_file);
   std::cout << "[INFO] AIE run completed successfully. Output written to " << myargs.output_file << std::endl;
 
   std::cout << ">>> AIE KERNEL PASSED <<<\n" << std::flush;
   return 0;
-} // <-- Το σωστό σημείο για το κλείσιμο της main
+
+} 
