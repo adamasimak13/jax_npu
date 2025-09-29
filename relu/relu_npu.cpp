@@ -29,7 +29,7 @@ extern "C" void relu_npu(float* input_array, float* output_array, int size, int 
     "--input-file %s "
     "--output-file %s "
     "-v 0"
-    " --run-cpu", // <-- The fix is the space at the beginning of this line
+    " --run-cpu", 
     input_filename,
     output_filename
 );
@@ -60,4 +60,5 @@ extern "C" void relu_npu(float* input_array, float* output_array, int size, int 
 
     remove(input_filename);
     remove(output_filename);
+
 }
