@@ -21,3 +21,8 @@ python data.py
 g++ -fPIC -shared -o libnpu_relu.so relu_npu.cpp 
 python experimental
 ```
+
+To run ReLU on the NPU without JAX, follow the steps below.
+```bash
+python helper.py
+```
