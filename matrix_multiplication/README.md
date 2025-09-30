@@ -23,3 +23,6 @@ make run
 g++ -fPIC -shared -o libnpu_matmul.so matmul_npu.cpp 
 python matmul_jax.py
 ```
+
+## Notice
+When you want to run matrix multiplication with JAX for dimensions 768x768, you need to set M = 256 in the Makefile, since JAX will perform data partitioning and split the matrix into 3 parts. This is done to properly prepare the kernels so that each one receives 256 elements.
