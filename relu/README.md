@@ -14,7 +14,7 @@ make clean
 make
 make run
 ```
-When 
+
 
 ## STEP 3
 ```bash
