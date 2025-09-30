@@ -1,7 +1,9 @@
 # Integration and evaluation of JAX framework on NPUs
 ## Submission for the Open Hardware Competition 2025 Track: Accelerated Computing
 Author: Adam Asimakopoulos
+
 Supervisor: Asst. Prof. Christoforos Kachris
+
 Affiliation: University of West Attica
 
 
