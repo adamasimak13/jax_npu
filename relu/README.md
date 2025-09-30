@@ -1,6 +1,8 @@
 # Integration and evaluation of JAX framework on NPUs
 We provide instructions on how to run this system.
 
+To run ReLU through JAX on the NPU, follow the steps below.
+
 ## STEP 1 
 ```bash
 git clone <repository_url>
