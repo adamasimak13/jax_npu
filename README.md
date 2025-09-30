@@ -37,3 +37,10 @@ The final result is a system where a user can write standard JAX code. Through o
 
  <img width="3840" height="919" alt="Data_partition" src="https://github.com/user-attachments/assets/782c0100-014d-44c6-9e37-66cb40827e98" />
 
+## 3. Key Results
+**3.1 ReLU**
+
+To validate the architecture, we run the ReLU operation with different data sizes. We compared the performance of a standard CPU with our target NPU in two scenarios. The first one is without JAX and the second one is with JAX. All times are measured in milliseconds (ms). 
+
+<img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/d37d0ade-6f3e-469d-bad8-7c9437589827" />
+Figure 1: ReLU Perfomance on NPU with and without JAX
