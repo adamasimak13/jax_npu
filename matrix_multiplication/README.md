@@ -20,6 +20,6 @@ make run
 ## STEP 3
 ```bash
 
-g++ -fPIC -shared -o libnpu_relu.so matmul_npu.cpp 
+g++ -fPIC -shared -o libnpu_matmul.so matmul_npu.cpp 
 python matmul_jax.py
 ```
