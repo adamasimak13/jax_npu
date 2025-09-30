@@ -37,10 +37,33 @@ The final result is a system where a user can write standard JAX code. Through o
 
  <img width="3840" height="919" alt="Data_partition" src="https://github.com/user-attachments/assets/782c0100-014d-44c6-9e37-66cb40827e98" />
 
-## 3. Running
+ ## 3. Prerequisites
+ The following tools and dependencies are required to set up and execute the project:
+
+ ### Hardware Configuration
+
+- **Processor / NPU System:** AMD Ryzen 9 7940HS
+
+- **Main Memory**: 32 GB DDR5
+
+- **Operating System**: Ubuntu 22.04 LTS
+
+ ### Software Environment
+- **Programming Languages:**
+  - **C++23:** For the host application controlling the NPU.
+  - **Python 3.10:** For the MLIR hardware generation scripts and the other python scripts.
+
+
+- **Toolkits and Libraries:**
+  - **AMD Vitis Unified Software Platform 2023.2:** Provides the aie-compiler as well as the required device drivers for the target NPU.
+  - **Xilinx Runtime (XRT) 2.16:** Supplies the C++ runtime interface used by the host application for communication with the NPU hardware.
+  - **CMake:** Utilized as the build system for compiling and managing the C++ host application.
+
+
+## 4. Running
 Each implementation folder contains a README file that explains how to run the corresponding implementation.
 
-## 4. Video
+## 5. Video
 A short video introducing our project is available on YouTube.
 
 https://www.youtube.com/watch?v=ddtP1KaPBgw
