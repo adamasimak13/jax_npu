@@ -42,3 +42,4 @@ Each implementation folder contains a README file that explains how to run the c
 
 ## 4. Video
 A short video introducing our project is available on YouTube.
+https://www.youtube.com/watch?v=ddtP1KaPBgw
