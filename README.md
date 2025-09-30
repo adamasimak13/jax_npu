@@ -16,7 +16,7 @@ performance machine learning framework from Google. It
  learning hardware, especially NPUs, offers a great chance
  for power-efficient and highly accelerated computation.
 
-<img width="521" height="459" alt="image" src="https://github.com/user-attachments/assets/4214b5e7-05b4-42af-b979-a712ec539cef" />
+<img width="350" height="308" alt="image" src="https://github.com/user-attachments/assets/4214b5e7-05b4-42af-b979-a712ec539cef" />
 
 
 
