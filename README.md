@@ -16,7 +16,8 @@ performance machine learning framework from Google. It
  learning hardware, especially NPUs, offers a great chance
  for power-efficient and highly accelerated computation.
 
-<img width="360" height="261" alt="image" src="https://github.com/user-attachments/assets/821733d5-1ed3-459b-9fd0-c462bebe7ce8" />
+<img width="521" height="459" alt="image" src="https://github.com/user-attachments/assets/4214b5e7-05b4-42af-b979-a712ec539cef" />
+
 
 
 This project proves the concept that connects JAX's user
@@ -27,7 +28,12 @@ friendly API with the low-level, hardware environment of
 
 ## 2. Achievements
 We designed and implemented a system that transfers JAX computations to an NPU. We successfully performed two basic neural network operations on the NPU using JAX, ReLU and Matrix Multiplication (Matmul). 
+
 ReLU (Rectified Linear Unit) is a basic, element-wise activation function. Running this operation successfully confirms the whole data path, from JAX's Python environment to the NPU hardware and back. 
+
 Matrix Multiplication (Matmul) is a computationally heavy process and its also one of the most basic operation for modern neural networks. Its successful execution shows that the architecture can manage complex tasks, making it a practical choice for real-world machine learning models. 
+
 The final result is a system where a user can write standard JAX code. Through our implementation, the computation runs on the NPU without needing changes to the user's high-level model definition. 
- 
+
+ <img width="3840" height="919" alt="Data_partition" src="https://github.com/user-attachments/assets/782c0100-014d-44c6-9e37-66cb40827e98" />
+
