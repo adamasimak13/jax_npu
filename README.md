@@ -1,4 +1,10 @@
 # Integration and evaluation of JAX framework on NPUs
+## Submission for the Open Hardware Competition 2025 Track: Accelerated Computing
+Author: Adam Asimakopoulos
+Supervisor: Asst. Prof. Christoforos Kachris
+Affiliation: University of West Attica
+
+
 ## 1. Project Goal
  The main goal of this project is to run JAX programs on
  Neural Processing Units (NPUs). JAX is a high
