@@ -102,9 +102,9 @@ TimingResult run_matmul_once(
     return res;
 }
 
-// ============================================================================
+
 // Golden Model and Verification Functions
-// ============================================================================
+
 
 void matmul_golden(
     const std::vector<A_DATATYPE>& A,
@@ -357,3 +357,4 @@ int main(int argc, const char *argv[]) {
 
   return 0;
 }
+
