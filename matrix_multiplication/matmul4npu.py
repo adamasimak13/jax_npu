@@ -1,4 +1,3 @@
-# npu4matmul_multi.py
 import os
 import ctypes
 import numpy as np
@@ -66,3 +65,4 @@ def matmul_npu_parallel(A: jnp.ndarray, B: jnp.ndarray) -> jnp.ndarray:
         jax.ShapeDtypeStruct((num_devices, M_shard, N), jnp.float32),
         A_shards, B
     )
+
